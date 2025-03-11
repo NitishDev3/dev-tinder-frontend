@@ -1,12 +1,12 @@
 import React from "react";
-import { useSwipeable } from "react-swipeable"; // Import the swipeable library
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../store/feedSlice";
 import axios from "axios";
 
 function UserCard({ user, isBtnDisabled }) {
-  const { _id, firstName, lastName, about, photoUrl, gender, age, skills } = user;
+  const { _id, firstName, lastName, about, photoUrl, gender, age, skills } =
+    user;
 
   const dispatch = useDispatch();
 
