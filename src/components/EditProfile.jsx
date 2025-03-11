@@ -5,16 +5,17 @@ import UserCard from "./UserCard";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 
-const EditProfile = ({ user }) => {
+const EditProfile = ({ user, isBtnDisabled }) => {
   const [isEditEnabled, setIsEditEnabled] = useState(false);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
+  const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [skills, setSkills] = useState(user.skills.join(", "));
 
+  const [showToast, sethowToast] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
 
   const dispatch = useDispatch();
@@ -43,14 +44,18 @@ const EditProfile = ({ user }) => {
 
   const handleSubmit = async () => {
     try {
+      setErrorMsg(null);
       const res = await axios.patch(BASE_URL + "/profile/edit", updateData, {
         withCredentials: true,
       });
       dispatch(addUser(res.data.data));
       setIsEditEnabled(false);
+      sethowToast(true);
+      setTimeout(() => {
+        sethowToast(false);
+      }, 1000);
     } catch (error) {
-      console.log(error);
-      setErrorMsg(error.message);
+      setErrorMsg(error.response.data);
     }
   };
 
@@ -169,8 +174,15 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
       <div className="scale-90">
-        <UserCard user={updateData} />
+        <UserCard user={updateData} isBtnDisabled={isBtnDisabled} />
       </div>
+      {showToast && (
+        <div className="toast toast-top toast-center mt-20">
+          <div className="alert alert-success text-white">
+            <span>Profile updated Successfully</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -37,7 +37,7 @@ const Hearder = () => {
         {user && (
           <div className="flex gap-2 items-center">
             <div>
-              <p>Welcome, {user.firstName}</p>
+              <p className="text-xl">Welcome, {user.firstName}</p>
             </div>
             <div className="dropdown dropdown-end mx-7">
               <div

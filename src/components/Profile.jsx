@@ -5,7 +5,7 @@ import EditProfile from "./EditProfile";
 const Profile = () => {
   const user = useSelector((store) => store.user);
 
-  return user && <EditProfile user={user} />;
+  return user && <EditProfile user={user} isBtnDisabled={true} />;
 };
 
 export default Profile;
