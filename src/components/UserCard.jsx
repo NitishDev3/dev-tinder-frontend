@@ -23,18 +23,8 @@ function UserCard({ user, isBtnDisabled }) {
     }
   };
 
-  // Swipe handlers
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => handleSendRequest("ignored", _id), // Swipe left to ignore
-    onSwipedRight: () => handleSendRequest("interested", _id), // Swipe right to express interest
-    trackMouse: true, // Enable mouse swipes for desktop
-  });
-
   return (
-    <div
-      {...swipeHandlers} // Attach swipe handlers to the card
-      className="card bg-base-300 w-96 shadow-sm hover:scale-[99.5%] cursor-grab"
-    >
+    <div className="card bg-base-300 w-96 shadow-sm hover:scale-[99.5%] cursor-grab">
       <figure>
         <img src={photoUrl} alt="Shoes" />
       </figure>
